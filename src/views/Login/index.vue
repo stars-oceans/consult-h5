@@ -26,7 +26,7 @@ const changeIsPwd = () => {
 
 // 发送验证码的事件
 const sending = async () => {
-  const { data: res } = await getCodeAPI('13230000001')
+  const { data: res } = await getCodeAPI(account.value)
   console.log(res)
   if (res) {
     console.log(res.code)

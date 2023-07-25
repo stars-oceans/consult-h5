@@ -6,14 +6,26 @@ import type { UserInfo } from '@/types/user.d.ts'
 // 导入pinia
 import { useUserStore } from '@/stores'
 import { getUserInfoAPI } from '@/apis/userInfo'
+// 导入 Dialog 弹出框 组件
+import { showConfirmDialog } from 'vant'
 const useUser = useUserStore()
 const router = useRouter()
 let userData = ref({} as UserInfo)
 // 点击登出的事件
 const logout = () => {
-  router.push('/login')
-  // 清除我们 pinia的 useInfo 里面的数据
-  useUser.delUserInfo()
+  showConfirmDialog({
+    title: '提示',
+    message: '您确定要退出吗?'
+  })
+    .then(() => {
+      // 确定按钮
+      router.push('/login')
+      // 清除我们 pinia的 useInfo 里面的数据
+      useUser.delUserInfo()
+    })
+    .catch(() => {
+      // 取消的按钮
+    })
 }
 // 获取用户数据信息接口方法
 const getUserInfo = async () => {

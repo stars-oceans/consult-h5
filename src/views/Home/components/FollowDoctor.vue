@@ -32,8 +32,10 @@ import DoctorCard from './DoctorCard.vue'
     }
   }
   .body {
+    display: flex;
     width: 100%;
-    overflow: hidden;
+    height: 250px;
+    overflow: auto;
   }
 }
 </style>

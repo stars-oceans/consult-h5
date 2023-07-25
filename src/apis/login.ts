@@ -14,7 +14,6 @@ export const loginByPasswordAPI = (mobile: string, password: string) => {
 }
 
 // 验证码登录的接口
-
 export const getCodeAPI = (mobile: string) => {
   console.log(mobile)
   return http<any>({

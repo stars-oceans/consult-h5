@@ -1,16 +1,25 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useConsultStore } from '@/stores'
+const useConsult = useConsultStore()
+const depEvent = (val: any) => {
+  /**
+   * 问诊级别：0普通  1三甲
+   */
+  useConsult.setIllnessType(val)
+}
+</script>
 
 <template>
   <!-- 1. 极速问诊开始 -->
   <div class="consult-fast-page">
     <cp-nav-bar title="极速问诊" right-text="问诊记录"></cp-nav-bar>
     <div class="fast-logo">
-      <img class="img" src="@/assets/consult-fast.png" alt="" />
+      <img class="img" src="@/icons/consult/doctor.svg" alt="" />
       <p class="text"><span>20s</span> 快速匹配专业医生</p>
     </div>
     <div class="fast-type">
       <!-- 问诊类型选择 -->
-      <router-link to="/consult/dep" class="item">
+      <router-link to="/consult/dep" class="item" @click="depEvent(1)">
         <cp-icon class="pic" name="consult-doctor"></cp-icon>
         <div class="info">
           <p>三甲图文问诊</p>
@@ -18,7 +27,8 @@
         </div>
         <van-icon name="arrow"></van-icon>
       </router-link>
-      <router-link to="/consult/dep" class="item">
+      <!-- 二甲 -->
+      <router-link to="/consult/dep" class="item" @click="depEvent(0)">
         <cp-icon class="pic" name="consult-message"></cp-icon>
         <div class="info">
           <p>普通图文问诊</p>
@@ -37,7 +47,7 @@
     padding: 30px 0;
     text-align: center;
     .img {
-      width: 240px;
+      width: 100px;
     }
     .text {
       font-size: 16px;

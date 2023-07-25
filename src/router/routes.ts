@@ -39,6 +39,12 @@ const routes = [
     meta: {
       title: '订单'
     }
+  },
+  // 家庭档案
+  {
+    path: '/user/patient',
+    name: 'patient',
+    component: () => import('@/views/User/PatientInfo.vue')
   }
 ]
 

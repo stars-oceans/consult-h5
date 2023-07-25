@@ -11,10 +11,36 @@ const routes: any = [
       title: '登录'
     }
   },
+  // home 首页
   {
+    redirect: '/home',
     path: '/',
     name: 'layout',
     component: () => import('@/views/Layout/index.vue')
+  },
+  // 极速问诊
+  {
+    path: '/consult/fast',
+    name: 'con-fast',
+    component: () => import('@/views/consult/ConsultFast.vue')
+  },
+  // 科室选则
+  {
+    path: '/consult/dep',
+    name: 'con-dep',
+    component: () => import('@/views/consult/ConsultDep.vue')
+  },
+  //病情描述
+  {
+    path: '/consult/illness',
+    name: 'con-ill',
+    component: () => import('@/views/consult/ConsultIllness.vue')
+  },
+  // 支付页面
+  {
+    path: '/consult/pay',
+    name: 'con-pay',
+    component: () => import('@/views/consult/ConsultPay.vue')
   }
 ]
 
@@ -36,7 +62,7 @@ trendsRoutes.forEach((item) => {
 })
 
 router.beforeEach((to, from, next) => {
-  console.log(to.meta.title)
+  // console.log(to.meta.title)
   // 设置我们的 title
   document.title = `在线问诊-${to.meta?.title || '页面'}`
   const UserStore = useUserStore()

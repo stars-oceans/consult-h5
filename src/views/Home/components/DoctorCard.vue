@@ -1,13 +1,30 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { getDocListAPI } from '@/apis/homeApi'
+import { onMounted, ref } from 'vue'
+import type { DocsType } from '@/types/consult.d.ts'
+// 定义医生列表
+const docsList = ref([] as DocsType[])
+
+// 获取医生列表的 API 方法
+const getDocList = async () => {
+  const { data: res } = await getDocListAPI('1', '5')
+  console.log(res)
+  docsList.value = res.rows
+
+  console.log(docsList.value)
+}
+
+// 生命周期钩子调用
+onMounted(() => {
+  getDocList()
+})
+</script>
 <template>
-  <div class="doctor-card">
-    <van-image
-      round
-      src="https://yanxuan-item.nosdn.127.net/3cb61b3fd4761555e56c4a5f19d1b4b1.png"
-    />
-    <p class="name">周医生</p>
-    <p>积水潭医院 神经内科</p>
-    <p>副主任医师</p>
+  <div class="doctor-card" v-for="item in docsList" :key="item.id">
+    <van-image round :src="item.avatar" />
+    <p class="name">{{ item.name }}</p>
+    <p>{{ item.hospitalName }} {{ item.depName }}</p>
+    <p>{{ item.positionalTitles }}</p>
     <van-button round size="small" type="primary">+ 关注</van-button>
   </div>
 </template>

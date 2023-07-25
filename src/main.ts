@@ -3,6 +3,8 @@ import './assets/main.css'
 import '@/styles/main.scss'
 // 导入 vant  轻提示
 import { Toast } from 'vant'
+// 2. 引入组件样式
+import 'vant/lib/index.css'
 // 这里需要单独引入这个样式
 import 'vant/es/toast/style'
 import { createApp } from 'vue'

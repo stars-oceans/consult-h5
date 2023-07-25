@@ -1,7 +1,39 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import type { DepType, Child } from '@/types/consult.d.ts'
+import { getDepAPI } from '@/apis//consultApi'
+import { onMounted } from 'vue'
+// 导入pinia
+import { useConsultStore } from '@/stores'
+const useConsult = useConsultStore()
+// 最开始选则的那一个
+const active = ref(1)
+// 数据的列表
+const depList = ref([] as DepType[])
+const childList = ref([] as Child[])
+// 获取我们这个 depList 数据的回调函数
+const getDep = async () => {
+  const { data: res } = await getDepAPI()
+  console.log(res)
+  depList.value = res
+  // 将第一项的值赋给下一菜单
+  childList.value = res[active.value].child
+}
+// 点击一级菜单获取下一级菜单的回调函数
+const depEvent = (value: any) => {
+  console.log(value.child)
+  childList.value = value.child
+}
+onMounted(() => {
+  getDep()
+})
 
-const active = ref(0)
+// 获取选择的 二级科室的 id
+const depEventChild = (id: string) => {
+  console.log(id)
+  // 存pinia
+  useConsult.setDep(id)
+}
+import { ref } from 'vue'
 </script>
 
 <template>
@@ -11,16 +43,22 @@ const active = ref(0)
     <div class="wrapper">
       <!-- 一级科室 -->
       <van-sidebar v-model="active">
-        <van-sidebar-item title="内科" />
-        <van-sidebar-item title="外科" />
-        <van-sidebar-item title="皮肤科" />
-        <van-sidebar-item title="骨科" />
+        <van-sidebar-item
+          :title="item.name"
+          v-for="item in depList"
+          :key="item.id"
+          @click="depEvent(item)"
+        />
       </van-sidebar>
       <!-- 二级科室 -->
       <div class="sub-dep">
-        <router-link to="/consult/illness">科室一</router-link>
-        <router-link to="/consult/illness">科室二</router-link>
-        <router-link to="/consult/illness">科室三</router-link>
+        <router-link
+          to="/consult/illness"
+          v-for="i in childList"
+          :key="i.id"
+          @click="depEventChild(i.id)"
+          >{{ i.name }}</router-link
+        >
       </div>
     </div>
   </div>

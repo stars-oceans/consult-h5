@@ -14,3 +14,5 @@ export default pinia
 
 // 在index.ts对module中的 stroe 仓库做统一导出
 export * from './modules/useUser'
+export * from './modules/useHome'
+export * from './modules/useConsult'

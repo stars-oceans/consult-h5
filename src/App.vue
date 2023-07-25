@@ -6,8 +6,4 @@ import { RouterView } from 'vue-router'
   <RouterView />
 </template>
 
-<style scoped>
-div {
-  font-size: 16px;
-}
-</style>
+<style scoped></style>
